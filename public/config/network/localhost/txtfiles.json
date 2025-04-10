@@ -1,0 +1,12 @@
+[
+  {
+	"name": "example.txt",
+	"authorizedUsers": [{"userId" : "a", "hidden": false}],
+	"content": "This is an example of the cool things you could do ! XK@lpolLKKG escaped on 13th October 1992, supervisor 454HcKAJG7K!X was killed"
+  },
+  {
+	"name": "b.txt",
+	"authorizedUsers": [{"userId" : "admin", "hidden": false}],
+	"content": "This is the content of b.txt. Admin only!"
+  }
+]

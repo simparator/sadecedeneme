@@ -1,0 +1,12 @@
+[
+  {
+	"name": "secret.vid",
+	"authorizedUsers": [{"userId" : "a", "hidden": true}],
+	"source": "example.gif"
+  },
+  {
+	"name": "earth.vid",
+	"authorizedUsers": [{"userId" : "a", "hidden": false}],
+	"source": "earth.mp4"
+  }
+]

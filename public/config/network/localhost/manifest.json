@@ -1,0 +1,20 @@
+{
+    "serverAddress": "localhost",
+    "serverName": "Delta Green Intranet",
+    "iconName": "delta-green.png",
+    "terminalID": "Y56",
+    "defaultUser": {
+        "userId": "user",
+        "password": "",
+        "userName": "anonymous"
+    },
+    "initialHistory": {
+        "user": [
+            "login admin@admin"
+        ],
+        "admin": [
+            "ping fbi.gov"
+        ]
+    },
+    "commands": ["clear", "decrypt", "files",  "help" ,"logout" , "mail"]
+}

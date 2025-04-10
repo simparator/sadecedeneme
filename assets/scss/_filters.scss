@@ -1,0 +1,75 @@
+$screen-background: #121010;
+
+@mixin fill {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.vignette {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/crt.png);
+  @include fill;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  z-index: 10000;
+}
+.scanlines {
+  @include fill;
+  z-index: 9999;
+  background: linear-gradient(
+				  transparentize($screen-background, 1) 50%,
+				  transparentize(darken($screen-background, 20), 0.75) 50%
+  ),
+  linear-gradient(
+				  90deg,
+				  transparentize(#ff0000, 0.80),
+				  transparentize(#00ff00, 0.90),
+				  transparentize(#0000ff, 0.80)
+  );
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+.on {
+  animation: 3000ms linear 0ms normal forwards 1 running on;
+}
+
+@keyframes on {
+  0% {
+	transform: scale(1, 0.8) translate3d(0, 0, 0);
+	filter: brightness(4);
+	opacity: 1;
+  }
+  3.5% {
+	transform: scale(1, 0.8) translate3d(0, 100%, 0);
+  }
+
+  3.6% {
+	transform: scale(1, 0.8) translate3d(0, -100%, 0);
+	opacity: 1;
+  }
+
+  9% {
+	transform: scale(1.3, 0.6) translate3d(0, 100%, 0);
+	filter: brightness(4);
+	opacity: 0;
+  }
+
+  11% {
+	transform: scale(1, 1) translate3d(0, 0, 0);
+	filter: contrast(0) brightness(0);
+	opacity: 0;
+  }
+
+  100% {
+	transform: scale(1, 1) translate3d(0, 0, 0);
+	filter: contrast(1) brightness(1.2) saturate(1.3);
+	opacity: 1;
+  }
+}
+
+.dg.ac {
+  z-index: 10000 !important;
+}
