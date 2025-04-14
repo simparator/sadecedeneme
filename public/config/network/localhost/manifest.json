@@ -16,5 +16,5 @@
             "ping fbi.gov"
         ]
     },
-    "commands": ["clear", "decrypt", "files",  "help" ,"logout" , "mail"]
+    "commands": ["clear", "decrypt", "files",  "help" ,"logout" , "mails"]
 }

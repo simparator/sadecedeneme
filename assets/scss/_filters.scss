@@ -1,75 +1,107 @@
-$screen-background: #121010;
-
-@mixin fill {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-}
-
-.vignette {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/crt.png);
-  @include fill;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  z-index: 10000;
-}
-.scanlines {
-  @include fill;
-  z-index: 9999;
-  background: linear-gradient(
-				  transparentize($screen-background, 1) 50%,
-				  transparentize(darken($screen-background, 20), 0.75) 50%
-  ),
-  linear-gradient(
-				  90deg,
-				  transparentize(#ff0000, 0.80),
-				  transparentize(#00ff00, 0.90),
-				  transparentize(#0000ff, 0.80)
-  );
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
-}
-
-.on {
-  animation: 3000ms linear 0ms normal forwards 1 running on;
-}
-
-@keyframes on {
+@keyframes glitch-zoom {
   0% {
-	transform: scale(1, 0.8) translate3d(0, 0, 0);
-	filter: brightness(4);
-	opacity: 1;
+	filter: blur(4px);
+	transform: scale(1) translate(0, 0) skew(0deg);
   }
-  3.5% {
-	transform: scale(1, 0.8) translate3d(0, 100%, 0);
+  7% {
+	transform:  scale(1) translate(0, 0) skew(0deg);
   }
-
-  3.6% {
-	transform: scale(1, 0.8) translate3d(0, -100%, 0);
-	opacity: 1;
+  8% {
+	transform:  scale(1.2) translate(-20px, 30px) skew(0deg);
   }
-
-  9% {
-	transform: scale(1.3, 0.6) translate3d(0, 100%, 0);
-	filter: brightness(4);
-	opacity: 0;
-  }
-
   11% {
-	transform: scale(1, 1) translate3d(0, 0, 0);
-	filter: contrast(0) brightness(0);
-	opacity: 0;
+	transform:  scale(1.2) translate(-20px, 30px) skew(0deg);
   }
-
+  12% {
+	transform:  scale(0) translate(0,0) skew(0deg);
+  }
+  32% {
+	transform: skew(0deg);
+  }
+  41% {
+	transform: skew(0deg);
+  }
+  67% {
+	transform:  scale(1) translate(0, 0) skew(0deg);
+  }
+  68% {
+	transform:  scale(1.2) translate(50px, 35px) skew(0deg);
+  }
+  71% {
+	transform:  scale(1.2) translate(50px, 35px) skew(0deg);
+  }
+  72% {
+	transform:  scale(0) translate(0,0) skew(0deg);
+  }
   100% {
-	transform: scale(1, 1) translate3d(0, 0, 0);
-	filter: contrast(1) brightness(1.2) saturate(1.3);
-	opacity: 1;
+	transform: skew(0deg);
+	filter: blur(0px);
   }
 }
 
-.dg.ac {
-  z-index: 10000 !important;
+
+// spazz effect : https://codepen.io/noahblon/pen/wKvvxX
+
+$filters: (
+		saturate: (
+				units: '',
+				range: (
+						min: 1,
+						max: 10
+				),
+				probability: 1/5
+		),
+		hue-rotate: (
+				units: 'deg',
+				probability: 1,
+				range: (
+						min: 0,
+						max: 360
+				),
+		),
+		invert: (
+				units: '',
+				probability: 1/30,
+				range: (
+						min: 1,
+						max: 1
+				),
+		),
+		contrast: (
+				units: '',
+				probability: 1/10,
+				range: (
+						min: 1,
+						max: 10
+				),
+		),
+		brightness: (
+				units: '%',
+				probability: 1/20,
+				range: (
+						min: 25,
+						max: 75
+				),
+		)
+);
+
+@keyframes spazz {
+  @for $i from 0 through 100 {
+	@if(random(100) < 66.6) {
+	  #{$i}% {
+		$filter_css_value: '';
+		@each $filter, $filter_props in $filters {
+		  @if((random(100) / 100) < map-get($filter_props, probability)) {
+			$range: map-get($filter_props, range);
+			$min: map-get($range, min);
+			$max: map-get($range, max);
+			$filter_css_value: $filter_css_value + ' #{$filter}(#{random(100) / 100 * ($max - $min) + $min}#{map-get($filter_props, units)})';
+		  }
+		}
+		filter: unquote($filter_css_value);
+		background-color: hsl(random(360), 100%, 70%);
+		transform: translate(#{random(30) - 15}px, #{random(30) - 15}px) scale(random(20) / 100 + 1.05);
+	  }
+	}
+  }
 }

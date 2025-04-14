@@ -31,11 +31,13 @@ const serverAddress = computed(() => {
 const txtfiles = ref([])
 const videofiles = ref([])
 const imagefiles = ref([])
+const reportfiles = ref([])
 const exefiles = ref([])
 
 txtfiles.value = await $fetch(`/config/network/${serverAddress.value}/txtfiles.json`);
-imagefiles.value = await $fetch(`/config/network/${serverAddress.value}/imagefiles.json`);
-videofiles.value = await $fetch(`/config/network/${serverAddress.value}/videofiles.json`);
+imagefiles.value = await $fetch(`/config/network/${serverAddress.value}/picfiles.json`);
+videofiles.value = await $fetch(`/config/network/${serverAddress.value}/vidfiles.json`);
+reportfiles.value = await $fetch(`/config/network/${serverAddress.value}/reportfiles.json`);
 exefiles.value = await $fetch(`/config/network/${serverAddress.value}/exefiles.json`);
 
 const userId = terminal.user?.userId;
@@ -51,6 +53,8 @@ const accessibleFiles = computed(() => {
   filesToAccess = [...filesToAccess , ...imagefiles.value.filter(file => checkIfAuth(file))];
 
   filesToAccess = [...filesToAccess , ...videofiles.value.filter(file => checkIfAuth(file))];
+
+  filesToAccess = [...filesToAccess , ...reportfiles.value.filter(file => checkIfAuth(file))];
 
   filesToAccess = [...filesToAccess , ...exefiles.value.filter(file => checkIfAuth(file))];
 

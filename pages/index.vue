@@ -1,12 +1,9 @@
 <template>
 
-  <div @click="autoFocus">
+  <div >
+<!--    @click="autoFocus"-->
 
-<!--    comment / remove these two lines to remove the old screen effect -->
-    <div class="vignette"></div>
-    <div class="scanlines"></div>
-
-    <div id="container" class="on">
+    <div id="container">
 
       <div class="tw-p-24">
 
@@ -30,7 +27,7 @@
                 <p>{{ item.command }}</p>
 
               </div>
-              <component :is="item.result" :content="item.props" />
+              <component v-if="item.show" :is="item.result" :content="item.props" @destroy="removeWindow(index)" />
             </div>
 
           </output>
@@ -103,15 +100,18 @@ function autoFocus() {
 }
 
 function scrollToBottom() {
-  // Scroll le body vers le bas
   setTimeout(() => {
     window.scrollTo(0, document.documentElement.scrollHeight || document.body.scrollHeight);
   } , 300)
 }
 
 function addToHistory(command, result , props) {
-  commandHistory.value.push({ command, result , props })
+  commandHistory.value.push({ command, result , props , show : true })
   scrollToBottom() // scroll to bottom of screen after each command
+}
+
+function removeWindow(index) {
+  commandHistory.value[index].show = false
 }
 
 function handleCommand() {
@@ -136,20 +136,19 @@ function handleCommand() {
     return;
   }
 
-  if(command.includes(".txt")) {
-    resultComponent = "txtFile"
-    props = command
-  } else if(command.includes(".pic")) {
-    resultComponent = "ImageFile"
-    props = command
-  } else if(command.includes(".vid")) {
-    resultComponent = "VideoFile"
-    props = command
-  } else if (command.includes(".exe")) {
-    const baseName = command.replace(".exe", "")
-    resultComponent = baseName + "Exe"
+
+
+  if(
+      command.includes(".txt") ||
+      command.includes(".pic") ||
+      command.includes(".vid") ||
+      command.includes(".report") ||
+      command.includes(".exe")
+  ) {
+    resultComponent = "checkFile"
     props = command
   }
+
   else if (command.startsWith("decrypt")) {
     const args = command.split(" ").slice(1).join(" ")
     resultComponent = "Decrypt"

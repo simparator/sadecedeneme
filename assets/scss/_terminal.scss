@@ -4,10 +4,6 @@
   background: $green;
 }
 
-* {
-  cursor: none !important;
-}
-
 html, body {
   width: 100vw;
   min-height: 100%;
@@ -45,15 +41,12 @@ code, kbd, samp, pre {
 }
 
 .input-line {
-  display: -webkit-box;
   -webkit-box-orient: horizontal;
   -webkit-box-align: stretch;
   display: -moz-box;
   -moz-box-orient: horizontal;
   -moz-box-align: stretch;
-  display: box;
-  box-orient: horizontal;
-  box-align: stretch;
+  display: flex;
   clear: both;
 }
 
@@ -67,9 +60,7 @@ code, kbd, samp, pre {
   display: -moz-box;
   -moz-box-pack: center;
   -moz-box-orient: vertical;
-  display: box;
-  box-pack: center;
-  box-orient: vertical;
+  display: flex;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -83,6 +74,27 @@ code, kbd, samp, pre {
   font: inherit;
   border: none;
   color: inherit;
+}
+
+// window
+
+.drv {
+  position: fixed !important;
+  border: none !important;
+}
+
+.window-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border: solid 1px $green;
+  box-shadow: 0 0 5px $green;
+}
+
+.window-content {
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Special FX */

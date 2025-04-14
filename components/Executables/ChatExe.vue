@@ -1,35 +1,22 @@
 <template>
-  <div class="chat-window">
 
-    <div class="tw-flex tw-justify-between tw-items-center tw-bg-green tw-px-8 tw-py-4">
-      Chat.exe
-
-      <div class="tw-text-right">
-        X
+  <div class="tw-p-8">
+    <div class="chat">
+      <div v-for="(msg, index) in chatHistory" :key="index">
+        <p class="tw-text-white"><strong class="tw-text-green">{{ messageWithName(msg.role) }}:</strong> {{ msg.content }}</p>
       </div>
 
+      <p v-if="isTyping"><strong>Nyx:</strong> <TypingIndicators/></p>
     </div>
 
-    <div class="tw-p-8">
-
-      <div class="chat">
-        <div v-for="(msg, index) in chatHistory" :key="index">
-          <p class="tw-text-white"><strong class="tw-text-green">{{ messageWithName(msg.role) }}:</strong> {{ msg.content }}</p>
-        </div>
-
-        <p v-if="isTyping"><strong>Nyx:</strong> <TypingIndicators/></p>
-      </div>
-
-      <div id="input-line" class="tw-mt-4 input-line">
-        <div class="prompt">[{{loggedUser.userName}}@{{ serverName }}] #</div>
-        <div><input class="tw-mt-4 cmdline" v-model="userInput"  autofocus ref="lineInput"
-                    @keydown.enter="handleSubmit"
-                    @keydown.esc="selfDestruct"
-        /></div>
-      </div>
-
+    <div id="input-line" class="tw-mt-4 input-line">
+      <div class="prompt">[{{loggedUser.userName}}@{{ serverName }}] #</div>
+      <div><input class="tw-mt-4 cmdline" v-model="userInput"  autofocus ref="lineInput"
+                  @keydown.enter="handleSubmit"
+      /></div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -42,9 +29,9 @@ const lineInput = ref(null)
 
 const terminal = useTerminalStore()
 onMounted(() => {
-  terminal.setChat(true)
   autoFocus()
 })
+
 
 const serverName = 'localhost'
 
@@ -54,13 +41,6 @@ const loggedUser = computed(() => {
 
 function autoFocus() {
   lineInput.value.focus()
-}
-
-const emit = defineEmits(["destroy"])
-
-function selfDestruct() {
-  terminal.setChat(false)
-  emit("destroy")
 }
 
 const messages = [
@@ -108,21 +88,5 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped lang="scss">
-
-.chat-window {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 50vw;
-  height: 70dvh;
-  border: solid 1px $green;
-  background-color: #000;
-  transform: translate(-50% , -50%);
-  overflow: auto;
-}
-
-.chat {
-  padding: 1rem;
-}
 
 </style>

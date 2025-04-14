@@ -2287,6 +2287,11 @@ dotenv@^16.4.7:
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.7.tgz"
   integrity sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==
 
+draggable-resizable-vue3@^1.0.94-beta:
+  version "1.0.94-beta"
+  resolved "https://registry.yarnpkg.com/draggable-resizable-vue3/-/draggable-resizable-vue3-1.0.94-beta.tgz#27571b5d4301829ff2c5f4cf61aa40e0d004cadb"
+  integrity sha512-5faM6lkLIrh9lgiviOeA+kOYatU6MjGHiA93P4B/eFTGYu9EkLDniN0QudhxTm60aLAFLBO3QlZOskeYKTH9dg==
+
 dunder-proto@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/dunder-proto/-/dunder-proto-1.0.1.tgz#d7ae667e1dc83482f8b70fd0f6eefc50da30f58a"

@@ -12,7 +12,7 @@ export const useTerminalStore = defineStore('terminal', {
 
 		user: null,
 
-		chat: false,
+		windowZ: 100,
 
 	}),
 
@@ -47,8 +47,8 @@ export const useTerminalStore = defineStore('terminal', {
 			this.user = user
 		},
 
-		setChat(state) {
-			this.chat = state
+		setWindowZ() {
+			this.windowZ++
 		},
 
 	}

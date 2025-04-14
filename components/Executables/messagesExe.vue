@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-mt-4">
+  <div class="tw-p-8">
     <p>Executables are more advanced scripts, for instance someone is typing something to you right now !</p>
 
     <p v-for="(message , i) in sentMessages" :key="i">

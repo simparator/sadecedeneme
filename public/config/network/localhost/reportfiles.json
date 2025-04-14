@@ -1,0 +1,41 @@
+[
+  {
+	"name": "12958.report",
+	"authorizedUsers": [{"userId" : "a", "hidden": false}],
+	"title": "The Man in the Mirror",
+	"content": "Cell D went looking for professor Bellingham in Arkham MA in November 1954 who was last seen on November 6th 1954. Bellingham was a person of interest due to his knowledge of the occult, and was the successor of Professor Armitage. Cell D went to Arkahm MA on November 24th 1954, where they found a trail of clues leading to Whispering Pines, Handler Daniels who was on charge of this cell at the time booked them a train to get there the following morning. It was the last time the Agency heard of them. Since then, a monitoring team has been deployed in the town of Whispering Pines.",
+	"image": "whispering-pines.jpg",
+	"agents": [
+	  {
+		"name" : "Dakota",
+		"number" : "0070",
+		"since" : "15/09/1954",
+		"height" : "1.83m",
+		"weight" : "72kg",
+		"photo" : "dakota.jpg",
+		"status" : "Missing",
+		"information" : "Agent Dakota Disappeared in november 1954, last known location Whispering Pines, WS"
+	  },
+	  {
+		"name" : "Down",
+		"number" : "0666",
+		"since" : "23/02/1947",
+		"height" : "1.88m",
+		"weight" : "84kg",
+		"photo" : "down.png",
+		"status" : "Missing",
+		"information" : "Agent Down Disappeared in november 1954, last known location Whispering Pines, WS"
+	  },
+	  {
+		"name" : "Deloria",
+		"number" : "0033",
+		"since" : "06/04/1951",
+		"height" : "1.67m",
+		"weight" : "61kg",
+		"photo" : "deloria.jpg",
+		"status" : "Missing",
+		"information" : "Agent Deloria Disappeared in november 1954, last known location Whispering Pines, WS"
+	  }
+	]
+  }
+]

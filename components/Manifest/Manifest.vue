@@ -1,7 +1,7 @@
 <template>
-  <div v-if="manifest" class="tw-mb-12 tw-flex tw-gap-8">
+  <div v-if="manifest" class="tw-mb-12 tw-flex tw-items-center tw-justify-start tw-gap-8">
 
-    <ImageEffect :filename="manifest.iconName" width="100" height="100" />
+    <ImageEffect :filename="manifest.iconName" class="tw-w-60" width="100" height="100" :zoom="false" />
 
     <div>
       <h2 class="tw-mb-2"> {{ terminal.serverName }}</h2>

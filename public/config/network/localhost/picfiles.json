@@ -2,11 +2,11 @@
   {
 	"name": "portrait.pic",
 	"authorizedUsers": [{"userId" : "a", "hidden": false}],
-	"source": "village.jpg"
+	"content": "village.jpg"
   },
   {
 	"name": "paysage.pic",
 	"authorizedUsers": [{"userId" : "a", "hidden": true}],
-	"source": "paysage.avif"
+	"content": "paysage.avif"
   }
 ]
