@@ -25,9 +25,11 @@ export default defineNuxtConfig({
     },
   },
   ssr: true, // Obligatoire
-  target: 'static', // Important pour `nuxt generate`
   nitro: {
-    preset: 'vercel' // pour que Vercel gère bien les API server
+    preset: 'vercel', // pour que Vercel gère bien les API server
+    prerender: {
+      routes: ['/'] // ici tu peux mettre toutes les routes que tu veux "pré-générer"
+    }
   },
   runtimeConfig: {
     openaiSecret: process.env.MISTRAL_SECRET, // server side only
