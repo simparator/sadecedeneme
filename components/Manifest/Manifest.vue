@@ -4,7 +4,7 @@
     <ImageEffect :filename="manifest.iconName" class="tw-w-60" width="100" height="100" :zoom="false" />
 
     <div>
-      <h2 class="tw-mb-2"> {{ terminal.serverName }}</h2>
+      <h2 class="tw-mb-2"> {{ manifest.serverName }}</h2>
       <p>ACCESS TO THIS NETWORK IS RESTRICTED.</p>
       <p>All activity is monitored. Failure to comply will result in immediate review.</p>
       <p v-if="loggedUser">Enter "help" for more information.</p>

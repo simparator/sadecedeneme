@@ -1,7 +1,7 @@
 <template>
 
   <div >
-<!--    @click="autoFocus"-->
+    <!--    @click="autoFocus"-->
 
     <div id="container">
 
@@ -16,7 +16,6 @@
         </div>
 
         <div v-if="loggedUser">
-
           <p >Access granted. Welcome {{loggedUser.userName }} </p>
 
           <!-- Output section -->
@@ -27,7 +26,7 @@
                 <p>{{ item.command }}</p>
 
               </div>
-              <component v-if="item.show" :is="item.result" :content="item.props" @destroy="removeWindow(index)" />
+              <component v-if="item.show" :is="item.result" :content="item.props" @destroy="removeWindow(index)" @changeServer="changeServer" />
             </div>
 
           </output>
@@ -59,9 +58,11 @@
 import Manifest from "~/components/Manifest/Manifest.vue";
 import {useTerminalStore} from "~/stores/app.ts";
 import BashLoader from "~/components/Loaders/BashLoader.vue";
+import {computed} from "vue";
 
 const terminal = useTerminalStore()
-const serverName = 'localhost'
+
+const serverName = computed(() => terminal.serverAddressData)
 
 const historyIndex = ref(-1)
 const commandHistory = ref([])
@@ -76,11 +77,11 @@ const commandList = computed(() => {
 })
 
 const loggedUser = computed(() => {
-  return terminal.user
+  return terminal.userData
 })
 
 onMounted(() => {
-  terminal.loadManifest(serverName)
+  terminal.loadManifest(serverName.value)
   setTimeout(() => {
     firstLoading.value = false
   } , 3000)
@@ -97,6 +98,11 @@ watch(loggedUser, async (newVal) => {
 const cmdline = ref(null)
 function autoFocus() {
   cmdline.value.focus()
+}
+
+function changeServer() {
+  commandHistory.value = []; // Clear history
+  cmdline.value.value = '' // Clear input
 }
 
 function scrollToBottom() {
@@ -148,7 +154,11 @@ function handleCommand() {
     resultComponent = "checkFile"
     props = command
   }
-
+  else if (command.startsWith("telnet")) {
+    const args = command.split(" ")[1]
+    resultComponent = "telnet"
+    props = args
+  }
   else if (command.startsWith("decrypt")) {
     const args = command.split(" ").slice(1).join(" ")
     resultComponent = "Decrypt"

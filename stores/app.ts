@@ -6,7 +6,7 @@ export const useTerminalStore = defineStore('terminal', {
 		loading: false,
 		error: null as string | null,
 
-		serverAddress: null as string | null,
+		serverAddress: 'localhost',
 
 		manifest: null,
 
@@ -18,6 +18,7 @@ export const useTerminalStore = defineStore('terminal', {
 
 	getters: {
 		manifestData: (state) => state.manifest,
+		userData: (state) => state.user,
 		serverAddressData: (state) => state.serverAddress,
 		serverName: (state) => state.manifest?.serverName ?? 'Inconnu',
 		iconPath: (state) =>
@@ -45,6 +46,10 @@ export const useTerminalStore = defineStore('terminal', {
 
 		setUser(user) {
 			this.user = user
+		},
+
+		setServerAddress(server) {
+			this.serverAddress = server
 		},
 
 		setWindowZ() {

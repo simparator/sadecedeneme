@@ -1,0 +1,12 @@
+[
+  {
+	"encrypted": "XK@lpolLKKG",
+	"decrypted": "Project Chimera",
+	"authorizedUsers": ["admin", "a"]
+  },
+  {
+	"encrypted": "454HcKAJG7K!X",
+	"decrypted": "Down",
+	"authorizedUsers": ["admin"]
+  }
+]

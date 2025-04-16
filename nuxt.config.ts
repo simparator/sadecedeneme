@@ -24,6 +24,11 @@ export default defineNuxtConfig({
       }
     },
   },
+  ssr: true, // Obligatoire
+  target: 'static', // Important pour `nuxt generate`
+  nitro: {
+    preset: 'vercel' // pour que Vercel gère bien les API server
+  },
   runtimeConfig: {
     openaiSecret: process.env.MISTRAL_SECRET, // server side only
     agentId: process.env.NUXT_AGENT_ID, // server side only

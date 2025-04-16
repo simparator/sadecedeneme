@@ -1,0 +1,12 @@
+[
+  {
+	"name": "example.txt",
+	"authorizedUsers": [{"userId" : "b", "hidden": false}],
+	"content": "This is a file from the fbi server"
+  },
+  {
+	"name": "b.txt",
+	"authorizedUsers": [{"userId" : "admin", "hidden": false}],
+	"content": "This is the content of b.txt. Admin only!"
+  }
+]

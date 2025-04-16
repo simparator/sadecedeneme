@@ -1,0 +1,20 @@
+{
+    "serverAddress": "fbi",
+    "serverName": "FBI Intranet",
+    "iconName": "fbi.png",
+    "terminalID": "Y56",
+    "defaultUser": {
+        "userId": "user",
+        "password": "",
+        "userName": "anonymous"
+    },
+    "initialHistory": {
+        "user": [
+            "login admin@admin"
+        ],
+        "admin": [
+            "ping fbi.gov"
+        ]
+    },
+    "commands": ["clear", "decrypt", "files",  "help" ,"logout" , "mails" , "telnet"]
+}

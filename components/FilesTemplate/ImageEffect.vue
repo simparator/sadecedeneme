@@ -16,6 +16,7 @@
         :height="height"
         :style="imgStyle"
     />
+
   </div>
 
   <div
@@ -68,6 +69,7 @@ const props = defineProps({
 })
 
 const serverAddress = computed(() => terminal.serverAddressData)
+
 const imagePath = computed(() => `/config/network/${serverAddress.value}/images/${props.filename}`)
 
 const zoomed = ref(false)

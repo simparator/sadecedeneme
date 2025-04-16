@@ -1,0 +1,14 @@
+[
+  {
+	"name": "messages.exe",
+	"authorizedUsers": [{"userId" : "a", "hidden": false}]
+  },
+  {
+	"name": "chat.exe",
+	"authorizedUsers": [{"userId" : "a", "hidden": false}]
+  },
+  {
+	"name": "b.exe",
+	"authorizedUsers": [{"userId" : "admin", "hidden": false}]
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+	"name": "portrait.pic",
+	"authorizedUsers": [{"userId" : "a", "hidden": false}],
+	"content": "village.jpg"
+  },
+  {
+	"name": "paysage.pic",
+	"authorizedUsers": [{"userId" : "a", "hidden": true}],
+	"content": "paysage.avif"
+  }
+]

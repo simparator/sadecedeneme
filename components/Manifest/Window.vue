@@ -81,5 +81,8 @@ function selfDestruct() {
   height: 100%;
   aspect-ratio: 1/1;
   background-color: $red;
+  &:hover {
+    background-color: rgba($red , .8);
+  }
 }
 </style>
