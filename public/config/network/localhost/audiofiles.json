@@ -1,0 +1,7 @@
+[
+  {
+	"name": "alien.audio",
+	"authorizedUsers": [{"userId" : "a", "hidden": false}],
+	"content": "alien.mp3"
+  }
+]

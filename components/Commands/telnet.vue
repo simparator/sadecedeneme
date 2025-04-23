@@ -59,9 +59,13 @@ onMounted(() => {
       await nextTick()
       await new Promise((r) => setTimeout(r, 2000)) // petit délai
 
-      const res = await $fetch(`/config/network/${connectionData.address}/manifest.json`)
+      const res = await $fetch(`/config/network/${connectionData.address}/manifest.json` , {throw: false})
 
-      const users = await $fetch(`/config/network/${connectionData.address}/userlist.json`)
+      if(!res) {
+        connecting.value = false
+        error.value = `Error: Server ${connectionData.address} not found or unreachable.`
+        return
+      }
 
       connecting.value = "verifying"
       await nextTick()

@@ -1,5 +1,4 @@
 <template>
-
   <DraggableResizableVue
       v-model:x="element.x"
       v-model:y="element.y"
@@ -13,6 +12,7 @@
       handles-type="borders"
       :style="{zIndex : windowZ}"
       :lock-aspect-ratio="lockRation"
+      :active-on-hover="true"
   >
 
     <div class="window-container" @click="setZ">
@@ -27,7 +27,7 @@
 
       </div>
 
-      <div class="tw-grow tw-bg-black window-content">
+      <div class="tw-grow tw-relative tw-bg-black window-content">
         <component :is="resultComponent" :file="file" />
       </div>
     </div>
@@ -45,8 +45,8 @@ const terminal = useTerminalStore()
 const windowZ = ref(null)
 
 const element = ref({
-  x: 20,
-  y: 20,
+  x: Math.floor(Math.random() * (700 - 300 + 1)) + 300,
+  y: Math.floor(Math.random() * (150 - 25 + 1)) + 25,
   w: 600,
   h: 450,
   isActive: false,

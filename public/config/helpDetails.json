@@ -1,0 +1,34 @@
+[
+  {
+	"commandName": "clear",
+	"commandHelp": "Clears the terminal screen. Usage: clear"
+  },
+  {
+	"commandName": "decrypt",
+	"commandHelp": "Decrypts an encrypted text using internal keys. Usage: decrypt <encryptedText>"
+  },
+  {
+	"commandName": "files",
+	"commandHelp": "Displays the list of accessible files in the system. Usage: files"
+  },
+  {
+	"commandName": "logout",
+	"commandHelp": "Ends the current session and returns to the login prompt. Usage: logout"
+  },
+  {
+	"commandName": "mails",
+	"commandHelp": "Opens the inbox to read received messages. Usage: mails"
+  },
+  {
+	"commandName": "open",
+	"commandHelp": "Opens the selected file. Usage: open <fileName>"
+  },
+  {
+	"commandName": "telnet",
+	"commandHelp": "Connects to a specific host. Usage: telnet <serverAddress>@<username>:<password>"
+  },
+  {
+	"commandName": "whoami",
+	"commandHelp": "Displays the current user identity. Usage: whoami"
+  }
+]

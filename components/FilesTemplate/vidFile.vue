@@ -1,26 +1,49 @@
 <template>
-  <div
-      class="tw-mt-4 tw-relative video-player"
-      ref="container"
-      @click="toggleZoom"
-      @mousemove="handleMouseMove"
-      :class="[{ zoomed } , { zoomAnimation }]"
-  >
-    <video
-        v-if="isVideo"
-        :src="sourcePath"
-        autoplay
-        loop
-        class="tw-w-full"
-        :class="{ 'pixelated-zoom': zoomEffect }"
-        :style="mediaStyle"
-    />
-    <img
-        v-else
-        :src="sourcePath"
-        :class="{ 'pixelated-zoom': zoomEffect }"
-        :style="mediaStyle"
-    />
+  <div>
+
+    <div
+        class="tw-mt-4 tw-relative video-player"
+        ref="container"
+        @click="toggleZoom"
+        @mousemove="handleMouseMove"
+        :class="[{ zoomed } , { zoomAnimation }]"
+    >
+      <video
+          v-if="isVideo"
+          :src="sourcePath"
+          autoplay
+          class="tw-w-full"
+          :class="{ 'pixelated-zoom': zoomEffect }"
+          :style="mediaStyle"
+          ref="videoElement"
+      />
+      <img
+          v-else
+          :src="sourcePath"
+          :class="{ 'pixelated-zoom': zoomEffect }"
+          :style="mediaStyle"
+      />
+
+
+    </div>
+
+    <div v-if="isVideo" class="progress-bar" @click="seekVideo($event)">
+      <div class="progress-fill" :style="{ width: progress + '%' }"></div>
+      <div class="timer">{{ formattedTime }}</div>
+
+    </div>
+
+    <div v-if="isVideo" class="controls">
+      <button @click.stop="rewind"><img class="invert" src="~/assets/images/fast-forward.svg"/></button>
+      <button @click.stop="stepBackward"><img class="invert" src="~/assets/images/frame.svg"/></button>
+      <button @click.stop="togglePlay">
+        <img v-if="isPlaying" src="~/assets/images/pause.svg"/>
+        <img v-else src="~/assets/images/play.svg"/>
+      </button>
+      <button @click.stop="stepForward"><img src="~/assets/images/frame.svg"/></button>
+      <button @click.stop="fastForward"><img src="~/assets/images/fast-forward.svg"/></button>
+
+    </div>
   </div>
 </template>
 
@@ -48,6 +71,10 @@ const zoomAnimation = ref(false)
 const mediaStyle = ref({})
 const originX = ref(50)
 const originY = ref(50)
+
+const currentTime = ref(0)
+const duration = ref(0)
+
 
 // Handles zoom and unzoom with pixelated transition
 function toggleZoom(event) {
@@ -99,6 +126,99 @@ function updateZoomStyle() {
     transition: 'transform 0.05s ease-out',
   }
 }
+
+// video controls
+const videoElement = ref(null)
+const isPlaying = ref(true)
+
+function togglePlay() {
+  const video = videoElement.value
+  if (!video) return
+
+  if (video.paused) {
+    video.play()
+    isPlaying.value = true
+  } else {
+    video.pause()
+    isPlaying.value = false
+  }
+}
+
+function rewind() {
+  const video = videoElement.value
+  if (video) video.currentTime -= 5
+}
+
+function fastForward() {
+  const video = videoElement.value
+  if (video) video.currentTime += 5
+}
+
+const frameTime = 1 / 15 // 30 FPS fallback
+
+function stepForward() {
+  const video = videoElement.value
+  video.pause()
+  isPlaying.value = false
+
+  if (video && video.paused) {
+    video.currentTime += frameTime
+  }
+}
+
+function stepBackward() {
+  const video = videoElement.value
+  video.pause()
+  isPlaying.value = false
+  if (video && video.paused) {
+    video.currentTime -= frameTime
+  }
+}
+
+const progress = ref(0)
+
+onMounted(() => {
+  if (videoElement.value) {
+    videoElement.value.addEventListener('timeupdate', updateProgress)
+  }
+})
+
+function updateProgress() {
+  const video = videoElement.value
+  if (video && video.duration) {
+    currentTime.value = video.currentTime
+    duration.value = video.duration
+    progress.value = (video.currentTime / video.duration) * 100
+  }
+}
+
+function seekVideo(event) {
+  const video = videoElement.value
+  if (!video || !video.duration) return
+
+  const rect = event.currentTarget.getBoundingClientRect()
+  const clickX = event.clientX - rect.left
+  const percentage = clickX / rect.width
+
+  video.currentTime = percentage * video.duration
+  progress.value = percentage * 100
+}
+
+
+
+const formattedTime = computed(() => {
+  return `${formatTime(currentTime.value)} / ${formatTime(duration.value)}`
+})
+
+function formatTime(seconds) {
+  if (!seconds || isNaN(seconds)) return "00:00"
+  const mins = Math.floor(seconds / 60)
+  const secs = Math.floor(seconds % 60)
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+}
+
+
+
 </script>
 
 <style scoped lang="scss">
@@ -119,4 +239,5 @@ function updateZoomStyle() {
 .video-player.zoomAnimation {
   animation: glitch-zoom .4s ease-in-out;
 }
+
 </style>

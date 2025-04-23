@@ -1,5 +1,8 @@
 <template>
-  <div class="tw-mt-4" v-if="file">
+  <div class="tw-mt-4" v-if="!content">
+    <p class="tw-text-red tw-italic">ERROR: Please provide file to open. Usage: open &lt;fileName&gt; </p>
+  </div>
+  <div class="tw-mt-4" v-else-if="file">
     <p v-if="!accessGranted">Access Denied: You do not have permission to view this file.</p>
     <div v-else>
       <Window :name="command" :result-component="resultComponent" :file="file" :lock-ration="lockRatio" @destroy="removeWindow"/>
@@ -37,7 +40,7 @@ const extension = command.split('.').pop()
 
 serverFiles.value = extension+'files'
 
-if(command.includes(".vid") || command.includes('.pic')) {
+if(command.includes(".vid") || command.includes(".audio") || command.includes('.pic')) {
   lockRatio.value = true
 }
 

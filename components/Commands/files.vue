@@ -28,47 +28,55 @@ const serverAddress = computed(() => {
   return terminal.serverAddressData
 })
 
-const txtfiles = ref([])
-const videofiles = ref([])
-const imagefiles = ref([])
-const reportfiles = ref([])
-const exefiles = ref([])
+const fileTypes = ['txtfiles', 'picfiles', 'vidfiles', 'audiofiles', 'reportfiles', 'exefiles'];
+const filesData = reactive({
+  txtfiles: [],
+  imagefiles: [],
+  videofiles: [],
+  audiofiles: [],
+  reportfiles: [],
+  exefiles: [],
+});
 
-txtfiles.value = await $fetch(`/config/network/${serverAddress.value}/txtfiles.json`);
-imagefiles.value = await $fetch(`/config/network/${serverAddress.value}/picfiles.json`);
-videofiles.value = await $fetch(`/config/network/${serverAddress.value}/vidfiles.json`);
-reportfiles.value = await $fetch(`/config/network/${serverAddress.value}/reportfiles.json`);
-exefiles.value = await $fetch(`/config/network/${serverAddress.value}/exefiles.json`);
+const typeToKey = {
+  txtfiles: 'txtfiles',
+  picfiles: 'imagefiles',
+  vidfiles: 'videofiles',
+  audiofiles: 'audiofiles',
+  reportfiles: 'reportfiles',
+  exefiles: 'exefiles',
+};
+
+await Promise.all(
+    fileTypes.map(async (type) => {
+      try {
+        const data = await $fetch(`/config/network/${serverAddress.value}/${type}.json`);
+        filesData[typeToKey[type]] = data;
+      } catch (error) {
+        if (error.response?.status !== 404) {
+          console.error(`Error loading ${type}:`, error);
+        } else {
+          console.warn(`${type}.json not found (404)`);
+        }
+        filesData[typeToKey[type]] = []; // default empty array if no json file
+      }
+    })
+);
 
 const userId = terminal.user?.userId;
 
+function checkIfAuth(file) {
+  return file.authorizedUsers?.some(user => user.userId === userId);
+}
 
-// Liste des fichiers txt accessibles
 const accessibleFiles = computed(() => {
-
-  let filesToAccess = [];
-
-  filesToAccess = txtfiles.value.filter(file => checkIfAuth(file));
-
-  filesToAccess = [...filesToAccess , ...imagefiles.value.filter(file => checkIfAuth(file))];
-
-  filesToAccess = [...filesToAccess , ...videofiles.value.filter(file => checkIfAuth(file))];
-
-  filesToAccess = [...filesToAccess , ...reportfiles.value.filter(file => checkIfAuth(file))];
-
-  filesToAccess = [...filesToAccess , ...exefiles.value.filter(file => checkIfAuth(file))];
-
-  filesToAccess = filesToAccess.filter(file =>
-      file.authorizedUsers.some(user => user.userId === userId && !user.hidden)
-  )
-
-  filesToAccess.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
-
-  // Filtrer les fichiers txt selon les utilisateurs autorisés
-  return filesToAccess
+  return Object.values(filesData)
+      .flat()
+      .filter(file => checkIfAuth(file))
+      .filter(file =>
+          file.authorizedUsers.some(user => user.userId === userId && !user.hidden)
+      )
+      .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 });
 
-function checkIfAuth(file) {
-  return file.authorizedUsers.some(user => user.userId === userId);
-}
 </script>

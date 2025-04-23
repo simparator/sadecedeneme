@@ -1,55 +1,53 @@
 <template>
 
-  <div >
-    <!--    @click="autoFocus"-->
 
-    <div id="container">
 
-      <div class="tw-p-24">
+  <div @click="handleClick" id="terminal-container">
 
-        <BashLoader v-if="!manifest || firstLoading" text="Booting System..."/>
+    <div class="tw-p-24">
 
-        <div v-if="manifest && !firstLoading">
-          <Manifest />
+      <BashLoader v-if="!manifest || firstLoading" text="Booting System..."/>
 
-          <Login v-if="!loggedUser" />
-        </div>
+      <div v-if="manifest && !firstLoading">
+        <Manifest />
 
-        <div v-if="loggedUser">
-          <p >Access granted. Welcome {{loggedUser.userName }} </p>
+        <Login v-if="!loggedUser" />
+      </div>
 
-          <!-- Output section -->
-          <output >
-            <div v-for="(item, index) in commandHistory" :key="index">
-              <div class="tw-mt-4 input-line">
-                <div class="prompt">[{{loggedUser.userName}}@{{ serverName }}] #</div>
-                <p>{{ item.command }}</p>
+      <div v-if="loggedUser">
+        <p >Access granted. Welcome {{loggedUser.userName }} </p>
 
-              </div>
-              <component v-if="item.show" :is="item.result" :content="item.props" @destroy="removeWindow(index)" @changeServer="changeServer" />
+        <!-- Output section -->
+        <output >
+          <div v-for="(item, index) in commandHistory" :key="index">
+            <div class="tw-mt-4 input-line">
+              <div class="prompt">[{{loggedUser.userName}}@{{ serverName }}] #</div>
+              <p>{{ item.command }}</p>
+
             </div>
-
-          </output>
-
-
-          <div id="input-line" class="tw-mt-4 input-line">
-            <div class="prompt">[{{loggedUser.userName}}@{{ serverName }}] #</div>
-            <div><input class="cmdline" autofocus ref="cmdline"
-                        @keydown.enter="handleCommand"
-                        @keydown.up.prevent="handleKeyUpDown"
-                        @keydown.down.prevent="handleKeyUpDown"
-                        @keydown.tab.prevent="handleAutoComplete"
-            /></div>
+            <component v-if="item.show" :is="item.result" :content="item.props" @destroy="removeWindow(index)" @changeServer="changeServer" />
           </div>
 
+        </output>
+
+
+        <div id="input-line" class="tw-mt-4 input-line">
+          <div class="prompt">[{{loggedUser.userName}}@{{ serverName }}] #</div>
+          <div><input class="cmdline" autofocus ref="cmdline"
+                      @keydown.enter="handleCommand"
+                      @keydown.up.prevent="handleKeyUpDown"
+                      @keydown.down.prevent="handleKeyUpDown"
+                      @keydown.tab.prevent="handleAutoComplete"
+          /></div>
         </div>
 
-
-
       </div>
-    </div>
 
+
+
+    </div>
   </div>
+
 
 </template>
 
@@ -97,7 +95,16 @@ watch(loggedUser, async (newVal) => {
 
 const cmdline = ref(null)
 function autoFocus() {
-  cmdline.value.focus()
+
+  if(cmdline.value) {
+    cmdline.value.focus()
+  }
+}
+
+function handleClick(event) { // prevent autofocus if click is from inside a window
+  if (event.target.closest('.drv')) return
+
+  autoFocus()
 }
 
 function changeServer() {
@@ -142,17 +149,10 @@ function handleCommand() {
     return;
   }
 
-
-
-  if(
-      command.includes(".txt") ||
-      command.includes(".pic") ||
-      command.includes(".vid") ||
-      command.includes(".report") ||
-      command.includes(".exe")
-  ) {
-    resultComponent = "checkFile"
-    props = command
+  if (command.startsWith("open")) {
+    const args = command.split(" ").slice(1).join(" ")
+    resultComponent = "open"
+    props = args
   }
   else if (command.startsWith("telnet")) {
     const args = command.split(" ")[1]
@@ -164,7 +164,12 @@ function handleCommand() {
     resultComponent = "Decrypt"
     props = args
   }
-  else if(!commandList.value.includes(command) && command !== "help" ) {
+  else if (command.startsWith("help")) {
+    const args = command.split(" ").slice(1).join(" ")
+    resultComponent = "Help"
+    props = args
+  }
+  else if(!commandList.value.includes(command)) {
     resultComponent = 'UnknownCommand'
   } else {
     resultComponent = command

@@ -29,7 +29,6 @@ import { useTerminalStore } from "~/stores/app.ts"
 
 const terminal = useTerminalStore()
 
-const serverName = 'localhost'
 const userId = computed(() => terminal.user?.userId)
 
 const mails = ref([])
@@ -40,7 +39,7 @@ const userMails = computed(() => {
 
 onMounted(async () => {
   try {
-    mails.value = await $fetch(`/config/network/${serverName}/mailserver.json`)
+    mails.value = await $fetch(`/config/network/${serverAddress.value}/mailserver.json`)
   } catch (e) {
     console.error("Failed to load mailserver.json", e)
   }
