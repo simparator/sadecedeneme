@@ -60,6 +60,8 @@ import {computed} from "vue";
 
 const terminal = useTerminalStore()
 
+const beepAudio = ref(null)
+
 const serverName = computed(() => terminal.serverAddressData)
 
 const historyIndex = ref(-1)
@@ -79,6 +81,9 @@ const loggedUser = computed(() => {
 })
 
 onMounted(() => {
+  beepAudio.value = new Audio('/soundeffects/beep.wav');
+  beepAudio.value.volume = 0.2;
+
   terminal.loadManifest(serverName.value)
   setTimeout(() => {
     firstLoading.value = false
@@ -178,6 +183,8 @@ function handleCommand() {
 
   // add command and component to history
   addToHistory(command, resultComponent , props)
+
+  beepAudio.value.play();
 
   cmdline.value.value = '' // clear input
   autoFocus()

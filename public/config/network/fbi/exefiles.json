@@ -1,11 +1,11 @@
 [
   {
 	"name": "messages.exe",
-	"authorizedUsers": [{"userId" : "a", "hidden": false}]
+	"authorizedUsers": [{"userId" : "darcy", "hidden": false}]
   },
   {
 	"name": "chat.exe",
-	"authorizedUsers": [{"userId" : "a", "hidden": false}]
+	"authorizedUsers": [{"userId" : "darcy", "hidden": false}]
   },
   {
 	"name": "b.exe",

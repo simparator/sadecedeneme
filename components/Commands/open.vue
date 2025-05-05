@@ -51,15 +51,14 @@ if (command.includes(".exe")) {
   resultComponent.value = extension+'File'
 }
 
-// Fonction pour charger les fichiers et vérifier les droits d'accès
 const loadFile = async () => {
   try {
     const files = await $fetch(`/config/network/${serverAddress.value}/${serverFiles.value}.json`);
-    const foundFile = files.find(f => f.name === command);  // On cherche le fichier
+    const foundFile = files.find(f => f.name === command);  // searching for file
     if (foundFile) {
-      // Vérification des droits d'accès
+      // Checking rights
       const userId = terminal.user?.userId;
-      // On filtre pour vérifier si l'utilisateur a un accès et que 'hidden' est false
+      // Filtering based on file's hidden parameter
       const isAuthorized = foundFile.authorizedUsers.some(user => user.userId === userId);
       if (isAuthorized) {
         file.value = foundFile;
