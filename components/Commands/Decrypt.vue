@@ -37,7 +37,7 @@ onMounted(async () => {
     const entries = await $fetch(`/config/network/${serverAddress.value}/decryption.json`)
     const entry = entries.find(e => e.encrypted === props.content)
 
-    // Vérification des droits d'accès
+    // Checking user rights
     const userId = terminal.user?.userId;
     if (entry && !entry.authorizedUsers.includes(userId)) {
       error.value = "ERROR: You do not have access to this decrypted data."

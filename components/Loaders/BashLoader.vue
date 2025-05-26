@@ -15,7 +15,7 @@ onMounted(() => {
   setInterval(() => {
     index = (index + 1) % sequence.length
     spinnerChar.value = sequence[index]
-  }, 100) // Vitesse de rotation
+  }, 100)
 })
 </script>
 

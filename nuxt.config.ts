@@ -24,11 +24,11 @@ export default defineNuxtConfig({
       }
     },
   },
-  ssr: true, // Obligatoire
+  ssr: true,
   nitro: {
-    preset: 'vercel', // pour que Vercel gère bien les API server
+    preset: 'vercel',
     prerender: {
-      routes: ['/'] // ici tu peux mettre toutes les routes que tu veux "pré-générer"
+      routes: ['/']
     }
   },
   runtimeConfig: {

@@ -35,7 +35,6 @@ onMounted(() => {
     autoFocus();
   };
 
-  // Ajout de l'event listener
   window.addEventListener("click", handleClick);
 
   onBeforeUnmount(() => {
@@ -72,7 +71,6 @@ function handleLogin() {
   )
 
   if (user) {
-    // changement d'état dans le store, etc.
     terminal.setUser(user)
   } else {
     loginMessage.value = 'Access denied. Invalid credentials.'

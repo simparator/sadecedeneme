@@ -85,7 +85,6 @@ onMounted(() => {
         connecting.value = false
         terminal.setServerAddress(connectionData.address)
         terminal.loadManifest(connectionData.address)
-        // changement d'état dans le store, etc.
         terminal.setUser(await checkCredentials(connectionData))
         emit("changeServer")
       }, 1500)

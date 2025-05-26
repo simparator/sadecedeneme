@@ -53,13 +53,13 @@ function typeMessage() {
       window.scrollTo(0, document.documentElement.scrollHeight || document.body.scrollHeight);
 
 
-      typeNext() // continuer avec le message suivant
+      typeNext() // next message
     }, delay)
   }
 
-  // Ajout d’un délai avant d’écrire le premier message
+  // random delay between each message
   setTimeout(() => {
     typeNext()
-  }, 1000 + Math.random() * 500) // petite pause avant d’écrire (entre 500ms et 1s)
+  }, 1000 + Math.random() * 500) // small pause (between 500ms et 1s)
 }
 </script>

@@ -6,7 +6,7 @@ export function setupGlobalClickSound() {
 		clickAudio.play();
 
 		clickAudio.addEventListener('ended', () => {
-			clickAudio.remove(); // Enlève la référence si besoin
+			clickAudio.remove();
 		});
 	};
 
@@ -22,7 +22,7 @@ export function setupGlobalKeySound() {
 		keyAudio.play();
 
 		keyAudio.addEventListener('ended', () => {
-			keyAudio.remove(); // Enlève la référence si besoin
+			keyAudio.remove();
 		});
 	};
 
