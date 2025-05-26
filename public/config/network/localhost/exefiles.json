@@ -2,13 +2,5 @@
   {
 	"name": "messages.exe",
 	"authorizedUsers": [{"userId" : "darcy", "hidden": false}]
-  },
-  {
-	"name": "chat.exe",
-	"authorizedUsers": [{"userId" : "darcy", "hidden": false}]
-  },
-  {
-	"name": "b.exe",
-	"authorizedUsers": [{"userId" : "admin", "hidden": false}]
   }
 ]

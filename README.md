@@ -14,7 +14,7 @@ In this section we will cover how you can customize your servers
 
 ![manifest preview](./docs/manifest-preview.png)
 
-The interface (logo, welcome message, commands) configuration is located in manifest.json
+The interface (logo, welcome message, commands) configuration is located in `manifest.json`
 
 `serverAddress` Must be the same as your folder's name <br/>
 `serverName` Is the name that will be displayed<br/>
@@ -24,6 +24,8 @@ The interface (logo, welcome message, commands) configuration is located in mani
 ### userlist
 
 ![user preview](./docs/user-preview.png)
+
+The users list can be configured in the `userlist.json` file on each server <br/>
 
 The users list for this specific server, each user has 3 required parameters :
 
@@ -35,6 +37,8 @@ The users list for this specific server, each user has 3 required parameters :
 
 ![decryption preview](./docs/decryption-preview.png)
 
+The decryption list can be configured in the `decryption.json` file on each server <br/>
+
 The decryption list for this specific server, each decryption has 3 required parameters :
 
 `encrypted` The character string the user must type to decrypt it<br/>
@@ -44,6 +48,8 @@ The decryption list for this specific server, each decryption has 3 required par
 ### Emails
 
 ![mails preview](./docs/mails-preview.png)
+
+The emails list can be configured in the `mailserver.json` file on each server <br/>
 
 The emails list for this specific server, each decryption has 5 required parameters and 1 optional :
 
@@ -96,7 +102,7 @@ Text files can be configured in the `txtfiles.json` file on each server, excludi
 
 `content` The content of the file that will be displayed<br/>
 
-**Important note :** by default the `name` parameter of each video must end with *.txt* , you can change this behavior by configuring the code if you wish
+**Important note :** by default the `name` parameter of each textfile must end with *.txt* , you can change this behavior by configuring the code if you wish
 
 ### Image files
 
